@@ -31,10 +31,10 @@ unset($_SESSION['login_erro']);
         <?php endif; ?>
 
         <form action="login_process.php" method="POST" id="loginForm">
-            <label for="email">E-MAIL CORPORATIVO</label>
+            <label for="usuario">USUÁRIO</label>
             <div class="input-group">
-                <span class="input-icon">✉</span>
-                <input type="email" id="email" name="email" placeholder="carlos.silva@metalon.com.br" required>
+                <span class="input-icon">👤</span>
+                <input type="text" id="usuario" name="usuario" placeholder="admin" autocomplete="username" required>
             </div>
 
             <label for="senha">SENHA</label>

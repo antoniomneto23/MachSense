@@ -13,14 +13,14 @@ class Usuario
 {
     public ?int $id;
     public string $nome;
-    public string $email;
+    public string $usuario;
     public string $senha; // hash (password_hash)
 
-    public function __construct(string $nome, string $email, string $senha, ?int $id = null)
+    public function __construct(string $nome, string $usuario, string $senha, ?int $id = null)
     {
         $this->id = $id;
         $this->nome = $nome;
-        $this->email = $email;
+        $this->usuario = $usuario;
         $this->senha = $senha;
     }
 
@@ -28,32 +28,32 @@ class Usuario
      * Cadastra um novo usuário (uso interno / seed — não exposto
      * em tela pública).
      */
-    public static function cadastrar(string $nome, string $email, string $senhaTextoPuro): bool
+    public static function cadastrar(string $nome, string $usuario, string $senhaTextoPuro): bool
     {
         global $pdo;
 
         $hash = password_hash($senhaTextoPuro, PASSWORD_BCRYPT);
 
         $stmt = $pdo->prepare(
-            'INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)'
+            'INSERT INTO usuarios (nome, usuario, senha) VALUES (:nome, :usuario, :senha)'
         );
 
         return $stmt->execute([
-            ':nome'  => $nome,
-            ':email' => $email,
-            ':senha' => $hash,
+            ':nome'    => $nome,
+            ':usuario' => $usuario,
+            ':senha'   => $hash,
         ]);
     }
 
     /**
-     * Busca um usuário pelo e-mail.
+     * Busca um usuário pelo login (campo "usuario").
      */
-    public static function buscarPorEmail(string $email): ?array
+    public static function buscarPorUsuario(string $login): ?array
     {
         global $pdo;
 
-        $stmt = $pdo->prepare('SELECT * FROM usuarios WHERE email = :email LIMIT 1');
-        $stmt->execute([':email' => $email]);
+        $stmt = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = :usuario LIMIT 1');
+        $stmt->execute([':usuario' => $login]);
         $usuario = $stmt->fetch();
 
         return $usuario ?: null;
@@ -62,9 +62,9 @@ class Usuario
     /**
      * Valida as credenciais informadas no login.
      */
-    public static function autenticar(string $email, string $senhaTextoPuro): ?array
+    public static function autenticar(string $login, string $senhaTextoPuro): ?array
     {
-        $usuario = self::buscarPorEmail($email);
+        $usuario = self::buscarPorUsuario($login);
 
         if (!$usuario) {
             return null;

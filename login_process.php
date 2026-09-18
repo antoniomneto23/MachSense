@@ -6,13 +6,13 @@ require_once __DIR__ . '/includes/Usuario.php';
 $erro = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
+    $login = trim($_POST['usuario'] ?? '');
     $senha = trim($_POST['senha'] ?? '');
 
-    if ($email === '' || $senha === '') {
-        $erro = 'Preencha e-mail e senha.';
+    if ($login === '' || $senha === '') {
+        $erro = 'Preencha usuário e senha.';
     } else {
-        $usuario = Usuario::autenticar($email, $senha);
+        $usuario = Usuario::autenticar($login, $senha);
 
         if ($usuario) {
             $_SESSION['usuario_id'] = $usuario['id'];
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        $erro = 'E-mail ou senha inválidos.';
+        $erro = 'Usuário ou senha inválidos.';
     }
 }
 
