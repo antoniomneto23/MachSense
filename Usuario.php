@@ -24,10 +24,6 @@ class Usuario
         $this->senha = $senha;
     }
 
-    /**
-     * Cadastra um novo usuário (uso interno / seed — não exposto
-     * em tela pública).
-     */
     public static function cadastrar(string $nome, string $usuario, string $senhaTextoPuro): bool
     {
         global $pdo;
@@ -45,9 +41,6 @@ class Usuario
         ]);
     }
 
-    /**
-     * Busca um usuário pelo login (campo "usuario").
-     */
     public static function buscarPorUsuario(string $login): ?array
     {
         global $pdo;
@@ -59,9 +52,6 @@ class Usuario
         return $usuario ?: null;
     }
 
-    /**
-     * Valida as credenciais informadas no login.
-     */
     public static function autenticar(string $login, string $senhaTextoPuro): ?array
     {
         $usuario = self::buscarPorUsuario($login);

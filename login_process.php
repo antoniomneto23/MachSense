@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once __DIR__ . '/includes/Usuario.php';
+require_once __DIR__ . '/Usuario.php';
 
 $erro = null;
 
