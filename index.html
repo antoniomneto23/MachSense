@@ -66,12 +66,12 @@
             <a href="#" class="link">Esqueci a senha</a>
           </div>
 
-          <button type="submit" class="btn-primary">Acessar produção</button>
+          <button type="submit" class="btn-primary" id="login-submit">Acessar produção</button>
         </form>
 
         <footer class="login-foot">
           <p>MachSense Production v2.1.0-Live. Para suporte contactar equipe de TI industrial.</p>
-          <p class="mono">Acesso de demonstração: admin / 123456</p>
+          <p class="mono">Acesso de demonstração: admin / admin</p>
         </footer>
 
       </div>
@@ -98,20 +98,20 @@
 
       <nav class="nav" aria-label="Navegação principal">
         <ul>
-          <li><a href="#" class="nav-link is-active">Dashboard</a></li>
+          <li><a href="#" class="nav-link is-active" data-view="dashboard">Dashboard</a></li>
           <li><a href="#" class="nav-link">Máquinas</a></li>
           <li><a href="#" class="nav-link">Paradas</a></li>
           <li><a href="#" class="nav-link">Relatórios</a></li>
-          <li><a href="#" class="nav-link">Configurações</a></li>
+          <li><a href="#" class="nav-link" data-view="usuarios">Configurações</a></li>
         </ul>
       </nav>
 
       <div class="sidebar-footer">
         <p class="line-status"><span class="dot dot-ok"></span>Linha_prod #01 : OK</p>
         <div class="user">
-          <span class="avatar" aria-hidden="true">CS</span>
+          <span class="avatar" id="user-avatar" aria-hidden="true">CS</span>
           <div>
-            <strong>Eng. Carlos S.</strong>
+            <strong id="user-nome">Eng. Carlos S.</strong>
             <small>Supervisor de produção</small>
           </div>
           <a href="#" class="logout" id="logout" title="Sair do sistema">Sair</a>
@@ -123,7 +123,7 @@
     <div class="main">
 
       <!-- HEADER -->
-      <header class="topbar">
+      <header class="topbar" id="topbar">
         <div class="topbar-title">
           <nav class="breadcrumb" aria-label="Localização">
             <a href="#">Início</a><span>/</span><span>Dashboard</span>
@@ -165,7 +165,7 @@
       </header>
 
       <!-- DASHBOARD -->
-      <main class="dashboard">
+      <main class="dashboard" id="view-dashboard">
 
         <!-- ALERTAS -->
         <section class="alerts" aria-label="Alertas">
@@ -597,12 +597,77 @@
 
       </main>
 
+      <!-- ===================== CONFIGURAÇÕES: USUÁRIOS ===================== -->
+      <main class="dashboard" id="view-usuarios" hidden>
+
+        <section class="panel" aria-labelledby="t-usuarios">
+          <header class="panel-head">
+            <h2 id="t-usuarios">Usuários</h2>
+            <button type="button" class="btn-primary" id="usuario-novo">Novo usuário</button>
+          </header>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Usuário</th>
+                  <th>Criado em</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="usuarios-lista"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" id="usuario-form-panel" aria-labelledby="t-usuario-form" hidden>
+          <header class="panel-head">
+            <h2 id="t-usuario-form">Novo usuário</h2>
+          </header>
+
+          <form class="login-form" id="usuario-form" novalidate>
+
+            <div class="form-error" id="usuario-error" role="alert" hidden>
+              <span class="form-error-tag">Erro</span>
+              <p></p>
+            </div>
+
+            <div class="field">
+              <label for="u-nome">Nome</label>
+              <div class="input">
+                <input type="text" id="u-nome" name="nome" autocomplete="off" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="u-usuario">Usuário</label>
+              <div class="input">
+                <input type="text" id="u-usuario" name="usuario" autocomplete="off" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="u-senha">Senha</label>
+              <div class="input">
+                <input type="password" id="u-senha" name="senha" autocomplete="new-password">
+              </div>
+              <p class="field-hint" id="u-senha-hint">Mínimo de 6 caracteres.</p>
+            </div>
+
+            <button type="submit" class="btn-primary" id="usuario-submit">Salvar</button>
+            <button type="button" class="link" id="usuario-cancelar">Cancelar</button>
+          </form>
+        </section>
+
+      </main>
+
       <footer class="foot">
         <p>MachSense Production v2.1.0 · Para suporte contactar equipe de TI industrial.</p>
       </footer>
     </div>
   </div>
 
+  <script src="storage.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
